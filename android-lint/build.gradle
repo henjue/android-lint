@@ -1,0 +1,26 @@
+apply plugin: 'java'
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.tools.lint:lint-api:24.3.1'
+    compile 'com.android.tools.lint:lint-checks:24.3.1'
+    testCompile 'junit:junit:4.11'
+    testCompile 'com.android.tools.lint:lint:24.3.1'
+    testCompile 'com.android.tools.lint:lint-tests:24.3.1'
+    testCompile 'com.android.tools:testutils:24.3.1'
+}
+jar {
+    archiveName 'lint.jar'
+    manifest {
+        attributes("Lint-Registry": "io.j99.tools.lint.AndroidIssueRegistry")
+    }
+}
+configurations {
+    lintJarOutput
+}
+
+dependencies {
+    lintJarOutput files(jar)
+}
+
+defaultTasks 'assemble'
